@@ -1,74 +1,65 @@
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    <div class="wrapper">
-    </div>
-  </header>
+    <div class="homepage">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button v-for="tab in tabs" :key="tab.id" @click="selectedTab = tab.name"
+                :class="{ active: selectedTab === tab.name }">
+                {{ tab.label }}
+            </button>
+        </div>
 
-  <main>
-    <TabNav :tabs="['Home', 'Settings', 'Profile']" :selected="selected" @selected="setSelected">
-      <Tab :isSelected="selected === 'Home'">
-        <p>Some test text</p>
-      </Tab>
-      <Tab :isSelected="selected === 'Settings'">
-        <h1>More test text</h1>
-      </Tab>
-      <Tab :isSelected="selected === 'Profile'">
-        <ul>
-          <li>list 1</li>
-          <li>list 2</li>
-          <li>list 3</li>
-        </ul>
-      </Tab>
-    </TabNav>
-  </main>
+        <!-- Cards -->
+        <div class="cards">
+            <div v-for="card in filteredCards" :key="card.id" class="card">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-import TabNav from './components/TabNav.vue';
-import Tab from './components/Tab.vue';
+import cardsData from "@/cards.json"; // Adjust path as necessary
 
 export default {
-  name: 'App',
-  components: { TabNav, Tab },
-  data() {
-    return {
-      selected: 'Home'
+    data() {
+        return {
+            tabs: [
+                { id: 1, name: "tab1", label: "Tab 1" },
+                { id: 2, name: "tab2", label: "Tab 2" }
+            ],
+            selectedTab: "tab1", // Default selected tab
+            cards: {} // Store JSON data here
+        };
+    },
+    computed: {
+        filteredCards() {
+            return this.cards[this.selectedTab] || [];
+        }
+    },
+    mounted() {
+        // Simulating fetching data
+        this.cards = cardsData;
     }
-  },
-  methods: {
-    setSelected(tab) {
-      this.selected = tab;
-    }
-  }
-}
+};
 </script>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+/* Basic styling */
+.tabs button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.tabs .active {
+    background-color: #007bff;
+    color: white;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.cards .card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
 }
 </style>

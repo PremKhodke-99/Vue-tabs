@@ -1,0 +1,26 @@
+{
+    "tab1": [
+        {
+            "id": 1,
+            "title": "Card 1",
+            "description": "This is Tab 1 Card 1"
+        },
+        {
+            "id": 2,
+            "title": "Card 2",
+            "description": "This is Tab 1 Card 2"
+        }
+    ],
+    "tab2": [
+        {
+            "id": 3,
+            "title": "Card 3",
+            "description": "This is Tab 2 Card 1"
+        },
+        {
+            "id": 4,
+            "title": "Card 4",
+            "description": "This is Tab 2 Card 2"
+        }
+    ]
+}
